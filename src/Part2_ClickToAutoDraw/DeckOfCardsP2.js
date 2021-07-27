@@ -8,9 +8,9 @@ import "./DeckOfCards.css";
 import blank from "./static/blank.png"
 
 
-const DeckOfCards = () => {
+const DeckOfCardsP2 = () => {
 
-    const DELAY = 1000;
+    const DELAY = 500;
 
     const NO_CARD = {
         image: blank,
@@ -147,4 +147,4 @@ const DeckOfCards = () => {
 
 }
 
-export default DeckOfCards;
+export default DeckOfCardsP2;

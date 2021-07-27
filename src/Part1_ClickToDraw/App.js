@@ -1,5 +1,4 @@
-import DeckOfCardsP1 from './Part1_ClickToDraw/DeckOfCardsP1';
-import DeckOfCardsP2 from './Part2_ClickToAutoDraw/DeckOfCardsP2';
+import DeckOfCardsP1 from './DeckOfCardsP1';
 import './App.css';
 
 function App() {
@@ -7,7 +6,6 @@ function App() {
   return (
     <div className="App">
       <DeckOfCardsP1 />
-      <DeckOfCardsP2 />
     </div>
   );
 }

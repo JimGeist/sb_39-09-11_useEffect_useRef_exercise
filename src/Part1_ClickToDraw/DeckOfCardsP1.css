@@ -1,0 +1,16 @@
+.DeckOfCards-btnDraw {
+    /* display: block; */
+    border-radius: 5px;
+    font-size: 1.5rem;;
+    font-weight: bold;
+    /* padding: 0.3rem 1.5rem 0.3rem 1.5rem; */
+}
+
+.DeckOfCards-btnDrawDisabled {
+    pointer-events: none;
+    color: #AAA;
+}
+
+.DeckOfCardsP1-h1 {
+    margin: 0px
+}
