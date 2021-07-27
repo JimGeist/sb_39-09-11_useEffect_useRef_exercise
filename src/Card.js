@@ -4,13 +4,8 @@ import blank from "./static/blank.png"
 
 const Card = ({ image = blank, value, suit, code }) => {
 
-    console.log(`${code}: render card;`)
-
     return (
         <div className="Card-divContainer" >
-            {/* <div className="Card-divButton" >
-                <button className="Card-btnDraw">Draw a Card</button>
-            </div> */}
             <div className="Card-divCard" >
                 <img className="Card-imgCard"
                     src={image}
@@ -19,20 +14,6 @@ const Card = ({ image = blank, value, suit, code }) => {
             </div>
         </div>
     )
-
-    // return (
-    //     <div className="Card-divContainer" >
-    //         {/* <div className="Card-divButton" >
-    //             <button className="Card-btnDraw">Draw a Card</button>
-    //         </div> */}
-    //         <div className="Card-divCard" >
-    //             <img className="Card-imgCard"
-    //                 src={`http://deckofcardsapi.com/static/img/${code}.png`}
-    //                 alt={`${code}.png`}
-    //             />
-    //         </div>
-    //     </div>
-    // )
 
 }
 

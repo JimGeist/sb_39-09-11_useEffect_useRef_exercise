@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# sb_39-09-11_useEffect_useRef_exercises
+ 
+## Technology Stack
+- **Front-end**: ReactJS
+- **Back-end**: n/a
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Assignment Details
 
-## Available Scripts
+Build a ReactJS application that displays the cards one at a time from a deck of cards. Application gives practice with `useEffect` and `useRef` React methods as well as dealing with multiple state conditions. 
 
-In the project directory, you can run:
+**Part 1** application would deal a card whenever the 'Deal a Card' button is pressed. A message appears when there are no more cards in the deck. 
 
-### `npm start`
+Every component required smoke and snapshot tests and tests to verify business logic. Tests need to enter data on the form, submit the form and use the buttons on the form or newly created components.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The assignment consisted of two parts -- a Color Box Maker and a Todo application. Both applications had very similar components 
+- `___List` component that renders the form as well as the box or todo component,
+- `New___Form` component with the labels, inputs, and 'Add' button to add a new box or todo.
+- `Box` or `Todo` component which renders the object -- either a color filled box or a todo item -- with the values entered on the form. An `X` button to delete the box or todo item must appear with object.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## Additional Details
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Enhancements**
+- Button to deal cards is disabled when there are no cards remaining in the deck.
 
-### `npm run build`
+**Difficulties**
+- Adjusting to a new kind of program flow and understanding how to link the functions in a very implicit manner -- changing the `draw` value causes the `DeckOfCards` compoent to render and when it renders the `useEffect` to get a new card runs because it depends on `draw`, which changed. AND getting a new card changes state and the `DeckOfCards` compoent will render yet again. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

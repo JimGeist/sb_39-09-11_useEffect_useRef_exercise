@@ -10,7 +10,8 @@ import blank from "./static/blank.png"
 
 const DeckOfCards = () => {
 
-    console.log("\n\nNewRun");
+    const DELAY = 1000;
+
     const NO_CARD = {
         image: blank,
         value: "no card",
@@ -19,23 +20,13 @@ const DeckOfCards = () => {
         deckDisableCls: ""
     };
 
-    console.log("setting draw");
-
+    const [deckId, setDeckId] = useState(null);
     const [draw, setDraw] = useState();
-
-    console.log("setting card");
     const [card, setCard] = useState(NO_CARD);
 
-    console.log(`${card.code}: setting deckId`);
-    const [deckId, setDeckId] = useState(null);
+    const [btnMode, setBtnMode] = useState("Start");
+
     const timerId = useRef();
-
-    console.log(`${card.code}: setting btnIsStart`);
-    const [btnIsStart, setBtnIsStart] = useState(true);
-
-    // const btnIsStart = useRef(true);
-    // console.log("btnIsStart: ", btnIsStart.current);
-    console.log(`${card.code}: btnIsStart: ${btnIsStart}`);
 
     const deckAPI = "http://deckofcardsapi.com/api/deck/";
 
@@ -43,31 +34,49 @@ const DeckOfCards = () => {
         clearInterval(timerId.current);
     }
 
+
     const handleDraw = () => {
+        // when btnMode is 'Start', interval code will deal a card
+        //   every DELAY milliseconds.
+        // when btnMode is 'Stop', the deal interval is canceled.
+
+        const flipMode = {
+            Start: "Stop",
+            Stop: "Start"
+        }
 
         // if (btnIsStart.current) {
-        if (btnIsStart) {
-
+        if (btnMode === "Start") {
+            // start dealing immediately
+            // draw controls flow instead of card. Changing card via
+            //  setCard resulted in a runaway condition.
+            // When draw changes, the DeckOfCards component will render
+            //  and run the useEffect to get a new card.
+            setDraw(Date.now());
             timerId.current = setInterval(() => {
                 setDraw(Date.now());
-            }, 5000);
+            }, DELAY);
 
         } else {
             stopDraw();
         }
 
-        // btnIsStart.current = !btnIsStart.current;
-        setBtnIsStart(!btnIsStart);
+        // Change the button mode -- Start becomes Stop; Stop becomes Start
+        setBtnMode(flipMode[btnMode]);
 
     }
 
+
     useEffect(() => {
-        // Draw a card from the deck
+        // Draw a card from the deck. The class to disable the start/stop 
+        //  draw button is set when there are 0 remaining cards in the current 
+        //  deck.
+        // card state is updated by calling setCard with the card data from the API
+        // Change of card state causes DeckOfCards to render.
 
         async function getCard() {
 
             try {
-                //http://deckofcardsapi.com/api/deck/<<deck_id>>/draw/?count=2
                 const res = await axios.get(`${deckAPI}${deckId}/draw/?count=1`);
 
                 let disableClass = "";
@@ -76,69 +85,66 @@ const DeckOfCards = () => {
                     disableClass = " Button-btnDrawDisabled"
                     // end the timer
                     stopDraw();
-
                 }
 
-                console.log(`${card.code} (old): new card from deck is ${res.data.cards[0].code};`)
+                // calling setCard outside of this function set it to the
+                //  promise object. Calling setCard within the function 
+                //  works since the promise is resolved.
+                // The class to disable the button when there are no more 
+                //  cards is added to card values.
+                // Calling setCard will cause the component to render with the 
+                //  new card value.
                 setCard({ ...res.data.cards[0], deckDisableCls: disableClass });
 
             } catch (error) {
-
+                console.error(error)
             }
 
         };
         if (deckId) {
-            console.log(`${card.code}: draw a card from the deck;`)
+            // Only call getCard when we have a deckId!
             getCard();
-            // const newCard = getCard()
-            // setCard(newCard);
         }
 
     }, [draw]);
 
     useEffect(() => {
         // Get initial deck of cards. Card deck is retained in deckId
-        // async function getDeckId() {
+        // This function / useEffect only runs once at start.
+        async function getDeckId() {
 
-        //     try {
-        //         //http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
-        //         const res = await axios.get(`${deckAPI}new/shuffle/?deck_count=1`);
+            try {
+                //http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
+                const res = await axios.get(`${deckAPI}new/shuffle/?deck_count=1`);
 
-        //         console.log("res:", res)
-        //         return res.data.deckId;
+                setDeckId(res.data.deck_id);
 
-        //     } catch (error) {
+            } catch (error) {
+                console.error(error)
+            }
 
-        //     }
-
-        // };
-        // setDeckId(getDeckId());
-        console.log("Setting deck id");
-        setDeckId("gm7u1496wcol");
+        };
+        getDeckId();
 
     }, []);
 
     return (
         <div className="Card-divContainer" >
-            <Button
-                btnIsStart={btnIsStart}
-                disableClass={card.deckDisableCls}
-                buttonFx={handleDraw} />
-
+            {deckId ?
+                <Button
+                    btnMode={btnMode}
+                    disableClass={card.deckDisableCls}
+                    buttonFx={handleDraw} />
+                : <h1>Loading . . .</h1>
+            }
             <Card image={card.image} value={card.value} suit={card.suit} code={card.code} />
+            {((card.deckDisableCls).length > 0) ?
+                <h1>There are no more cards in deck '{deckId}'.</h1>
+                : <h1>&nbsp;</h1>
+            }
         </div>
     )
 
-    //         < div className = "DeckOfCards-divButton" >
-    //         {deckId ?
-    //         <button
-    //             btnMode="Draw a Card"
-    //             disableClass={card.deckDisableCls}
-    //             buttonFx={handleDraw} />
-    //         : <h1>Loading</h1>}
-    // </div>
-
-    // {deckId ? <button className={`DeckOfCards-btnDraw${card.deckDisableCls}`} onClick={handleDraw} >Draw a Card</button> : <h1>Loading</h1>}
 }
 
 export default DeckOfCards;
