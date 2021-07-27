@@ -1,0 +1,16 @@
+.Button-btnDraw {
+    margin-top: 0.75rem;
+    border-radius: 5px;
+    font-size: 1.5rem;;
+    font-weight: bold;
+    padding: 0.3rem 1.5rem 0.3rem 1.5rem;
+}
+
+.Button-btnDrawDisabled {
+    pointer-events: none;
+    color: #AAA;
+}
+
+.DeckOfCards-divButton {
+    height: 3.0rem;
+}

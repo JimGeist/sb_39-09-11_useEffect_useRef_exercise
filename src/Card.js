@@ -4,6 +4,8 @@ import blank from "./static/blank.png"
 
 const Card = ({ image = blank, value, suit, code }) => {
 
+    console.log(`${code}: render card;`)
+
     return (
         <div className="Card-divContainer" >
             {/* <div className="Card-divButton" >
